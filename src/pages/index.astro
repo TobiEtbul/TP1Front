@@ -1,11 +1,91 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const peliculas = [
+  { titulo: "Inception", genero: "Sci-Fi" },
+  { titulo: "Titanic", genero: "Romance" },
+  { titulo: "Avengers", genero: "Acción" },
+  { titulo: "Joker", genero: "Drama" },
+  { titulo: "Toy Story", genero: "Animación" }
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Catálogo de Películas</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        margin: 0;
+        background: #111;
+        color: white;
+      }
+
+      header {
+        text-align: center;
+        padding: 20px;
+        background: #222;
+      }
+
+      input {
+        padding: 10px;
+        width: 80%;
+        max-width: 400px;
+        margin: 20px auto;
+        display: block;
+        border-radius: 8px;
+        border: none;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .card {
+        background: #222;
+        padding: 15px;
+        border-radius: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1> Catálogo de Películas</h1>
+    </header>
+
+    <input type="text" id="buscador" placeholder="Buscar película..." />
+
+    <main class="grid" id="contenedor">
+      {peliculas.map(p => (
+        <div class="card">
+          <h3>{p.titulo}</h3>
+          <p>{p.genero}</p>
+        </div>
+      ))}
+    </main>
+
+    <script>
+      const input = document.getElementById("buscador");
+      const cards = document.querySelectorAll(".card");
+
+      input.addEventListener("input", () => {
+        const valor = input.value.toLowerCase();
+
+        cards.forEach(card => {
+          const titulo = card.querySelector("h3").textContent.toLowerCase();
+
+          if (titulo.includes(valor)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
