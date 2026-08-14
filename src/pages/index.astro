@@ -3,8 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import Catalogo from "../components/Catalogo.astro";
 import Estadisticas from "../components/Estadisticas.astro";
+import Sobre from "../components/Sobre.astro";
 import { obtenerSeries, obtenerGeneros, calcularEstadisticas } from "../data/series";
 
+// Todo esto corre en el build: el resultado queda escrito en el HTML final.
 const series = await obtenerSeries();
 const generos = obtenerGeneros(series);
 const estadisticas = calcularEstadisticas(series);
@@ -12,9 +14,10 @@ const estadisticas = calcularEstadisticas(series);
 
 <Layout
   titulo="Seriteca — Catálogo de series"
-  descripcion="Catálogo de series hecho con Astro. TP 1 de Frontend."
+  descripcion="Catálogo de las series mejor puntuadas de TVmaze, con buscador, filtros por género, estadísticas y modo oscuro. TP 1 de Frontend hecho con Astro."
 >
   <Hero cantidad={series.length} mejor={estadisticas.mejor.nombre} />
   <Catalogo series={series} generos={generos} />
   <Estadisticas datos={estadisticas} />
+  <Sobre />
 </Layout>

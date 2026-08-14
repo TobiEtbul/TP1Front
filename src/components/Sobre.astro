@@ -1,0 +1,144 @@
+---
+const herramientas = [
+  {
+    icono: "🚀",
+    nombre: "Astro",
+    detalle: "Genera HTML estático. Sin framework de UI ni JS innecesario en el cliente.",
+  },
+  {
+    icono: "🎨",
+    nombre: "CSS moderno",
+    detalle: "Variables, Grid, Flexbox, clamp() y media queries. Sin frameworks de estilos.",
+  },
+  {
+    icono: "⚙️",
+    nombre: "JavaScript",
+    detalle: "Eventos, manipulación del DOM, localStorage y fetch a una API externa.",
+  },
+  {
+    icono: "🌐",
+    nombre: "TVmaze API",
+    detalle: "Los datos se piden en el build y también en vivo desde el navegador.",
+  },
+];
+
+const funciones = [
+  "Buscador que filtra el catálogo mientras escribís",
+  "Filtro por género y ordenamiento por puntaje, nombre o año",
+  "Modo claro / oscuro que se recuerda con localStorage",
+  "Búsqueda en vivo contra la API con estados de carga y error",
+  "Animaciones de aparición al hacer scroll y contadores animados",
+  "Diseño responsive con menú hamburguesa en mobile",
+];
+---
+
+<section class="seccion" id="sobre">
+  <div class="contenedor sobre">
+    <div>
+      <div class="seccion__titulo">
+        <h2>Sobre el proyecto</h2>
+      </div>
+      <p class="seccion__bajada">
+        <strong>Seriteca</strong> es la actividad diagnóstico de Frontend: una página estática
+        hecha con Astro, dividida en componentes reutilizables y con todo el comportamiento
+        resuelto en JavaScript del lado del cliente.
+      </p>
+
+      <h3 class="sobre__subtitulo">Qué hace</h3>
+      <ul class="sobre__lista">
+        {funciones.map((funcion) => <li>{funcion}</li>)}
+      </ul>
+    </div>
+
+    <div class="sobre__herramientas">
+      {
+        herramientas.map((herramienta) => (
+          <article class="herramienta revelar">
+            <span class="herramienta__icono" aria-hidden="true">
+              {herramienta.icono}
+            </span>
+            <div>
+              <h3 class="herramienta__nombre">{herramienta.nombre}</h3>
+              <p class="herramienta__detalle">{herramienta.detalle}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .sobre {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .sobre__subtitulo {
+    font-size: 1.05rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .sobre__lista {
+    display: grid;
+    gap: 0.5rem;
+    padding: 0;
+    list-style: none;
+    color: var(--texto-suave);
+  }
+
+  .sobre__lista li {
+    position: relative;
+    padding-left: 1.6rem;
+  }
+
+  .sobre__lista li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--acento);
+    font-weight: 700;
+  }
+
+  .sobre__herramientas {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .herramienta {
+    display: flex;
+    gap: 1rem;
+    padding: 1.1rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    transition: border-color var(--transicion), transform var(--transicion);
+  }
+
+  .herramienta:hover {
+    border-color: var(--acento);
+    transform: translateX(4px);
+  }
+
+  .herramienta__icono {
+    font-size: 1.4rem;
+  }
+
+  .herramienta__nombre {
+    font-size: 1rem;
+  }
+
+  .herramienta__detalle {
+    font-size: 0.87rem;
+    color: var(--texto-suave);
+  }
+
+  @media (max-width: 860px) {
+    .sobre {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+</style>
