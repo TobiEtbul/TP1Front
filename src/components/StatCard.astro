@@ -1,0 +1,61 @@
+---
+// Tarjeta reutilizable de métrica. El número se anima con JS (cuenta hasta el valor).
+interface Props {
+  icono: string;
+  valor: number;
+  decimales?: number;
+  sufijo?: string;
+  titulo: string;
+  detalle: string;
+}
+
+const { icono, valor, decimales = 0, sufijo = "", titulo, detalle } = Astro.props;
+---
+
+<article class="estadistica revelar">
+  <span class="estadistica__icono" aria-hidden="true">{icono}</span>
+  <p class="estadistica__valor">
+    <span data-contador={valor} data-decimales={decimales}>{valor.toFixed(decimales)}</span>{sufijo}
+  </p>
+  <h3 class="estadistica__titulo">{titulo}</h3>
+  <p class="estadistica__detalle">{detalle}</p>
+</article>
+
+<style>
+  .estadistica {
+    padding: 1.5rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    transition: transform var(--transicion), border-color var(--transicion);
+  }
+
+  .estadistica:hover {
+    transform: translateY(-4px);
+    border-color: var(--acento);
+  }
+
+  .estadistica__icono {
+    font-size: 1.5rem;
+  }
+
+  .estadistica__valor {
+    margin-top: 0.5rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--acento);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .estadistica__titulo {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  .estadistica__detalle {
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+  }
+</style>

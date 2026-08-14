@@ -1,0 +1,209 @@
+---
+import StatCard from "./StatCard.astro";
+
+interface Props {
+  datos: {
+    total: number;
+    promedio: number;
+    mejor: { nombre: string; puntaje: number };
+    enEmision: number;
+    generosDistintos: number;
+    porGenero: { genero: string; cantidad: number }[];
+    maximoGenero: number;
+  };
+}
+
+const { datos } = Astro.props;
+---
+
+<section class="seccion estadisticas" id="estadisticas">
+  <div class="contenedor">
+    <div class="seccion__titulo">
+      <h2>Estadísticas</h2>
+      <p class="etiqueta">Calculadas en el build</p>
+    </div>
+    <p class="seccion__bajada">
+      Estos números se calculan al compilar el sitio a partir de los datos de la API, así
+      que se actualizan solos en cada deploy.
+    </p>
+
+    <div class="estadisticas__grilla">
+      <StatCard
+        icono="🎬"
+        valor={datos.total}
+        titulo="Series en el catálogo"
+        detalle="Las mejor puntuadas de TVmaze"
+      />
+      <StatCard
+        icono="⭐"
+        valor={datos.promedio}
+        decimales={2}
+        titulo="Puntaje promedio"
+        detalle="Sobre un máximo de 10"
+      />
+      <StatCard
+        icono="🏷️"
+        valor={datos.generosDistintos}
+        titulo="Géneros distintos"
+        detalle="Disponibles en el filtro"
+      />
+      <StatCard
+        icono="📡"
+        valor={datos.enEmision}
+        titulo="Todavía en emisión"
+        detalle="El resto ya terminó"
+      />
+    </div>
+
+    <!-- Gráfico simple hecho con CSS: el ancho de cada barra es proporcional -->
+    <div class="grafico revelar">
+      <h3 class="grafico__titulo">Géneros más frecuentes</h3>
+      <ul class="grafico__lista">
+        {
+          datos.porGenero.map(({ genero, cantidad }) => (
+            <li class="barra">
+              <span class="barra__nombre">{genero}</span>
+              <span class="barra__pista">
+                <span
+                  class="barra__relleno"
+                  style={`--ancho: ${Math.round((cantidad / datos.maximoGenero) * 100)}%`}
+                />
+              </span>
+              <span class="barra__valor">{cantidad}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  // --- Anima los números (0 → valor) y las barras cuando la sección entra en pantalla ---
+  const seccion = document.getElementById("estadisticas");
+  const sinMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function animarNumero(elemento: HTMLElement) {
+    const destino = Number(elemento.dataset.contador ?? 0);
+    const decimales = Number(elemento.dataset.decimales ?? 0);
+    const duracion = 1200;
+    const inicio = performance.now();
+
+    function paso(ahora: number) {
+      const progreso = Math.min((ahora - inicio) / duracion, 1);
+      // easing suave al final
+      const valor = destino * (1 - Math.pow(1 - progreso, 3));
+      elemento.textContent = valor.toFixed(decimales);
+      if (progreso < 1) requestAnimationFrame(paso);
+    }
+
+    requestAnimationFrame(paso);
+  }
+
+  if (seccion && !sinMovimiento) {
+    const observador = new IntersectionObserver(
+      (entradas, obs) => {
+        for (const entrada of entradas) {
+          if (!entrada.isIntersecting) continue;
+
+          seccion.querySelectorAll<HTMLElement>("[data-contador]").forEach(animarNumero);
+          seccion.querySelectorAll(".barra__relleno").forEach((barra) => {
+            barra.classList.add("barra__relleno--activa");
+          });
+
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    observador.observe(seccion);
+  } else {
+    // Sin animación: las barras se muestran ya completas
+    seccion?.querySelectorAll(".barra__relleno").forEach((barra) => {
+      barra.classList.add("barra__relleno--activa");
+    });
+  }
+</script>
+
+<style>
+  .estadisticas {
+    background-color: var(--superficie-alt);
+    border-block: 1px solid var(--borde);
+  }
+
+  .estadisticas__grilla {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
+    gap: 1.25rem;
+  }
+
+  .grafico {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+  }
+
+  .grafico__titulo {
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .grafico__lista {
+    display: grid;
+    gap: 0.9rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .barra {
+    display: grid;
+    grid-template-columns: 9rem 1fr 2rem;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .barra__nombre {
+    color: var(--texto-suave);
+  }
+
+  .barra__pista {
+    height: 10px;
+    border-radius: 999px;
+    background-color: var(--superficie-alt);
+    overflow: hidden;
+  }
+
+  .barra__relleno {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: 999px;
+    background-image: linear-gradient(
+      90deg,
+      var(--acento),
+      color-mix(in srgb, var(--acento) 55%, white)
+    );
+    transition: width 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .barra__relleno--activa {
+    width: var(--ancho);
+  }
+
+  .barra__valor {
+    text-align: right;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 560px) {
+    .barra {
+      grid-template-columns: 6.5rem 1fr 1.75rem;
+      font-size: 0.82rem;
+    }
+  }
+</style>
