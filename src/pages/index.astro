@@ -1,15 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import { obtenerSeries, calcularEstadisticas } from "../data/series";
+
+const series = await obtenerSeries();
+const estadisticas = calcularEstadisticas(series);
 ---
 
 <Layout
   titulo="Seriteca — Catálogo de series"
   descripcion="Catálogo de series hecho con Astro. TP 1 de Frontend."
 >
-  <section class="seccion" id="inicio">
-    <div class="contenedor">
-      <h1>Seriteca</h1>
-      <p>Catálogo de series. Trabajo en progreso.</p>
-    </div>
-  </section>
+  <Hero cantidad={series.length} mejor={estadisticas.mejor.nombre} />
 </Layout>

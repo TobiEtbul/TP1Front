@@ -1,0 +1,179 @@
+---
+interface Props {
+  cantidad: number;
+  mejor: string;
+}
+
+const { cantidad, mejor } = Astro.props;
+---
+
+<section class="hero seccion" id="inicio">
+  <div class="contenedor hero__interior">
+    <div class="hero__texto">
+      <p class="etiqueta">Catálogo de series</p>
+      <h1>Encontrá tu próxima <span class="hero__resaltado">maratón</span>.</h1>
+      <p class="hero__bajada">
+        Un catálogo con las {cantidad} series mejor puntuadas de TVmaze. Buscá por nombre,
+        filtrá por género y ordená por puntaje — todo al instante, sin recargar la página.
+      </p>
+
+      <div class="hero__acciones">
+        <a class="boton boton--principal" href="#catalogo">Explorar catálogo</a>
+        <a class="boton boton--secundario" href="#estadisticas">Ver estadísticas</a>
+      </div>
+
+      <p class="hero__dato">
+        🏆 La mejor puntuada del catálogo es <strong>{mejor}</strong>
+      </p>
+    </div>
+
+    <div class="hero__decoracion" aria-hidden="true">
+      <div class="hero__circulo"></div>
+      <div class="hero__tarjeta hero__tarjeta--1">★ 9.2</div>
+      <div class="hero__tarjeta hero__tarjeta--2">Drama</div>
+      <div class="hero__tarjeta hero__tarjeta--3">Sci-Fi</div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    overflow: hidden;
+    background-image: radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      var(--acento-suave),
+      transparent
+    );
+  }
+
+  .hero__interior {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .hero__resaltado {
+    color: var(--acento);
+  }
+
+  .hero__bajada {
+    max-width: 52ch;
+    margin-top: 1rem;
+    color: var(--texto-suave);
+    font-size: 1.05rem;
+  }
+
+  .hero__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .boton {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform var(--transicion), box-shadow var(--transicion);
+  }
+
+  .boton:hover {
+    transform: translateY(-2px);
+  }
+
+  .boton--principal {
+    background-color: var(--acento);
+    color: var(--acento-texto);
+    box-shadow: var(--sombra);
+  }
+
+  .boton--secundario {
+    border: 1px solid var(--borde);
+    background-color: var(--superficie);
+    color: var(--texto);
+  }
+
+  .hero__dato {
+    margin-top: 1.75rem;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+  }
+
+  /* --- Decoración animada --- */
+  .hero__decoracion {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 320px;
+  }
+
+  .hero__circulo {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background-image: conic-gradient(from 0deg, var(--acento), transparent 65%);
+    filter: blur(4px);
+    opacity: 0.55;
+    animation: girar 14s linear infinite;
+  }
+
+  .hero__tarjeta {
+    position: absolute;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    background-color: var(--superficie);
+    box-shadow: var(--sombra);
+    font-weight: 700;
+    font-size: 0.9rem;
+    animation: flotar 5s ease-in-out infinite;
+  }
+
+  .hero__tarjeta--1 {
+    top: 12%;
+    left: 4%;
+    color: #e0a800;
+  }
+
+  .hero__tarjeta--2 {
+    bottom: 18%;
+    left: 14%;
+    animation-delay: 1.2s;
+  }
+
+  .hero__tarjeta--3 {
+    top: 30%;
+    right: 2%;
+    animation-delay: 2.4s;
+  }
+
+  @keyframes girar {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes flotar {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-12px);
+    }
+  }
+
+  /* --- Responsive: en pantallas chicas se apila y se oculta la decoración --- */
+  @media (max-width: 860px) {
+    .hero__interior {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__decoracion {
+      display: none;
+    }
+  }
+</style>
