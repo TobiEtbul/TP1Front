@@ -1,0 +1,403 @@
+[
+  {
+    "id": 169,
+    "nombre": "Breaking Bad",
+    "generos": [
+      "Drama",
+      "Crime",
+      "Thriller"
+    ],
+    "puntaje": 9.2,
+    "estado": "Ended",
+    "anio": 2008,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/501/1253519.jpg",
+    "sinopsis": "Breaking Bad follows protagonist Walter White, a chemistry teacher who lives in New Mexico with his wife and teenage son who has cerebral palsy. White is diagnosed with Stage III cancer and given a prognosis of two years left to live. With a new sense of fearlessness based on his medical prognosis, and a desire to secure his family's financial security, White chooses to enter a dangerous world of drugs and crime and ascends to power in this world. The series explores how a fatal diagnosis such as White's releases a typical man from the daily concerns and constraints of normal society and follows his transformation from mild family man to a kingpin of the drug trade.",
+    "url": "https://www.tvmaze.com/shows/169/breaking-bad"
+  },
+  {
+    "id": 82,
+    "nombre": "Game of Thrones",
+    "generos": [
+      "Drama",
+      "Adventure",
+      "Fantasy"
+    ],
+    "puntaje": 8.9,
+    "estado": "Ended",
+    "anio": 2011,
+    "duracion": 61,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/498/1245274.jpg",
+    "sinopsis": "Based on the bestselling book series A Song of Ice and Fire by George R.R. Martin, this sprawling new HBO drama is set in a world where summers span decades and winters can last a lifetime. From the scheming south and the savage eastern lands, to the frozen north and ancient Wall that protects the realm from the mysterious darkness beyond, the powerful families of the Seven Kingdoms are locked in a battle for the Iron Throne. This is a story of duplicity and treachery, nobility and honor, conquest and triumph. In the Game of Thrones, you either win or you die.",
+    "url": "https://www.tvmaze.com/shows/82/game-of-thrones"
+  },
+  {
+    "id": 179,
+    "nombre": "The Wire",
+    "generos": [
+      "Drama",
+      "Crime"
+    ],
+    "puntaje": 8.9,
+    "estado": "Ended",
+    "anio": 2002,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/504/1260189.jpg",
+    "sinopsis": "The first season of The Wire (2002) concentrated on the often-futile efforts of police to infiltrate a West Baltimore drug ring headed by Avon Barksdale and his lieutenant, Stringer Bell. In Seasons Two and Three, as the Barksdale investigation escalated, new storylines involving pressures on the working class and the city's political leadership were introduced. Season Four focused on the stories of several young boys in the public school system, struggling with problems at home and the lure of the corner - set against the rise of a new drug empire in West Baltimore and a new Mayor in City Hall. The fifth and final season of The Wire centers on the media's role in addressing - or failing to address - the fundamental political, economic and social realities depicted over the course of the series, while also resolving storylines of the numerous characters woven throughout the narrative arc of the show.",
+    "url": "https://www.tvmaze.com/shows/179/the-wire"
+  },
+  {
+    "id": 180,
+    "nombre": "Firefly",
+    "generos": [
+      "Drama",
+      "Adventure",
+      "Science-Fiction"
+    ],
+    "puntaje": 8.9,
+    "estado": "Ended",
+    "anio": 2002,
+    "duracion": 64,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/1/2600.jpg",
+    "sinopsis": "Five hundred years in the future, a renegade crew aboard a small spacecraft tries to survive as they travel the unknown parts of the galaxy and evade warring factions as well as authority agents out to get them.",
+    "url": "https://www.tvmaze.com/shows/180/firefly"
+  },
+  {
+    "id": 2,
+    "nombre": "Person of Interest",
+    "generos": [
+      "Action",
+      "Crime",
+      "Science-Fiction"
+    ],
+    "puntaje": 8.8,
+    "estado": "Ended",
+    "anio": 2011,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/163/407679.jpg",
+    "sinopsis": "You are being watched. The government has a secret system, a machine that spies on you every hour of every day. I know because I built it. I designed the Machine to detect acts of terror but it sees everything. Violent crimes involving ordinary people. People like you. Crimes the government considered \"irrelevant\". They wouldn't act so I decided I would. But I needed a partner. Someone with the skills to intervene. Hunted by the authorities, we work in secret. You'll never find us. But victim or perpetrator, if your number is up, we'll find you.",
+    "url": "https://www.tvmaze.com/shows/2/person-of-interest"
+  },
+  {
+    "id": 40,
+    "nombre": "Death Note",
+    "generos": [
+      "Anime",
+      "Fantasy",
+      "Thriller"
+    ],
+    "puntaje": 8.8,
+    "estado": "Ended",
+    "anio": 2006,
+    "duracion": 30,
+    "idioma": "Japanese",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/499/1249019.jpg",
+    "sinopsis": "Death Note is an anime series based around a manga of the same name whereby a human finds a death god's notebook. Any person's name written in this notebook will die. The main character who finds this noteboook is Light Yagami who faces off against an unfaced character named L who tries to challenge him.",
+    "url": "https://www.tvmaze.com/shows/40/death-note"
+  },
+  {
+    "id": 204,
+    "nombre": "Stargate SG·1",
+    "generos": [
+      "Action",
+      "Adventure",
+      "Science-Fiction"
+    ],
+    "puntaje": 8.8,
+    "estado": "Ended",
+    "anio": 1997,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/1/3027.jpg",
+    "sinopsis": "Stargate SG-1 is a science fiction series based on the original film Stargate. It involves the team SG-1 going on various adventures to different alien worlds through Stargates. Throughout the series they encounter various alien threats and allies including but not limited to the Goa'uld and the Asgard.",
+    "url": "https://www.tvmaze.com/shows/204/stargate-sg1"
+  },
+  {
+    "id": 206,
+    "nombre": "Stargate Atlantis",
+    "generos": [
+      "Action",
+      "Adventure",
+      "Science-Fiction"
+    ],
+    "puntaje": 8.8,
+    "estado": "Ended",
+    "anio": 2004,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/498/1245482.jpg",
+    "sinopsis": "Atlantis, built thousands of years ago by the highly evolved Ancients, is home base for an elite expedition from Earth. These courageous military commanders and scientists leap through the city's Stargate to explore the wondrous Pegasus galaxy and battle the treacherous Wraith, who seek control of Atlantis -- at any cost.",
+    "url": "https://www.tvmaze.com/shows/206/stargate-atlantis"
+  },
+  {
+    "id": 106,
+    "nombre": "Justified",
+    "generos": [
+      "Drama",
+      "Crime",
+      "Western"
+    ],
+    "puntaje": 8.7,
+    "estado": "Ended",
+    "anio": 2010,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/0/808.jpg",
+    "sinopsis": "Deputy U.S. Marshal Raylan Givens is something of a 19th century-style officer in modern times, whose unconventional enforcement of justice makes him a target with criminals and a problem for his superiors in the U.S. Marshals Service. As a result of an eager but \"justified\" shooting of a Miami fugitive while on assignment in Florida, Givens is reassigned to Lexington, Kentucky, in a district that includes his hometown of Harlan, a rural mining town in the east of the state.",
+    "url": "https://www.tvmaze.com/shows/106/justified"
+  },
+  {
+    "id": 118,
+    "nombre": "House",
+    "generos": [
+      "Drama",
+      "Mystery",
+      "Medical"
+    ],
+    "puntaje": 8.7,
+    "estado": "Ended",
+    "anio": 2004,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/357/894990.jpg",
+    "sinopsis": "Sink your teeth into meaty drama and intrigue with House, FOX's take on mystery, where the villain is a medical malady and the hero is an irreverent, controversial doctor who trusts no one, least of all his patients.Dr. Gregory House is a maverick physician who is devoid of bedside manner. While his behavior can border on antisocial, Dr. House thrives on the challenge of solving the medical puzzles that other doctors give up on. Together with his hand-picked team of young medical experts, he'll do whatever it takes in the race against the clock to solve the case.",
+    "url": "https://www.tvmaze.com/shows/118/house"
+  },
+  {
+    "id": 166,
+    "nombre": "Battlestar Galactica",
+    "generos": [
+      "Drama",
+      "Science-Fiction",
+      "War"
+    ],
+    "puntaje": 8.7,
+    "estado": "Ended",
+    "anio": 2003,
+    "duracion": 61,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/0/2313.jpg",
+    "sinopsis": "The world ended with no warning, and all that was left… was hope.A truce between the humans of the Twelve Colonies and the Cylons—intelligent robots designed by humankind—lasts for 40 tense and silent years. Battlestar Galactica picks up just as the Cylons commit mass genocide against humanity. Only the Battlestar Galactica (an old warship about to be decommissioned and turned into a museum) and those souls fortunate enough to be aboard other starships were able to survive the attack. In the aftermath, the Galactica's commanding officer, William Adama, finds himself responsible for safeguarding the last remnants of the human race—fewer than 50,000 desperate survivors. Meanwhile, the annihilation of the Colonial government results in the succession of the Secretary of Education, Laura Roslin, to the presidency. Driven by prophetic visions and political necessity, the Galactica travels through uncharted space in hopes of finding the mythical, lost 13th colony—Earth.",
+    "url": "https://www.tvmaze.com/shows/166/battlestar-galactica"
+  },
+  {
+    "id": 216,
+    "nombre": "Rick and Morty",
+    "generos": [
+      "Comedy",
+      "Adventure",
+      "Science-Fiction"
+    ],
+    "puntaje": 8.7,
+    "estado": "Running",
+    "anio": 2013,
+    "duracion": 30,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/626/1566363.jpg",
+    "sinopsis": "Rick is a mentally gifted, but sociopathic and alcoholic scientist and a grandfather to Morty; an awkward, impressionable, and somewhat spineless teenage boy. Rick moves into the family home of Morty, where he immediately becomes a bad influence.",
+    "url": "https://www.tvmaze.com/shows/216/rick-and-morty"
+  },
+  {
+    "id": 29,
+    "nombre": "Vikings",
+    "generos": [
+      "Drama",
+      "Action",
+      "History"
+    ],
+    "puntaje": 8.6,
+    "estado": "Ended",
+    "anio": 2013,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/286/715906.jpg",
+    "sinopsis": "Vikings transports us to the brutal and mysterious world of Ragnar Lothbrok, a Viking warrior and farmer who yearns to explore - and raid - the distant shores across the ocean.",
+    "url": "https://www.tvmaze.com/shows/29/vikings"
+  },
+  {
+    "id": 32,
+    "nombre": "Fargo",
+    "generos": [
+      "Drama",
+      "Comedy",
+      "Crime"
+    ],
+    "puntaje": 8.6,
+    "estado": "To Be Determined",
+    "anio": 2014,
+    "duracion": 67,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/487/1219631.jpg",
+    "sinopsis": "Fargo is a seasonal anthology crime drama with some dark comical elements, inspired by the film Fargo written by the Coen brothers. Each season follows a new case and new characters, all entrenched in the trademark humor, murder and \"Minnesota nice\" that has made the film an enduring classic.",
+    "url": "https://www.tvmaze.com/shows/32/fargo"
+  },
+  {
+    "id": 61,
+    "nombre": "Orphan Black",
+    "generos": [
+      "Drama",
+      "Science-Fiction",
+      "Thriller"
+    ],
+    "puntaje": 8.6,
+    "estado": "Ended",
+    "anio": 2013,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/484/1210257.jpg",
+    "sinopsis": "Orphan Black is about Sarah, an outsider and orphan whose life changes dramatically after witnessing the suicide of a woman, \"Beth\", who looks just like her. Sarah takes her identity, her boyfriend and her money. But instead of solving her problems, the street-smart chameleon is thrust headlong into a kaleidoscopic mystery. She makes the dizzying discovery that she and the dead woman are clones... but are they the only ones? Sarah quickly finds herself caught in the middle of a deadly conspiracy, racing to find answers.",
+    "url": "https://www.tvmaze.com/shows/61/orphan-black"
+  },
+  {
+    "id": 158,
+    "nombre": "Fringe",
+    "generos": [
+      "Drama",
+      "Action",
+      "Science-Fiction"
+    ],
+    "puntaje": 8.6,
+    "estado": "Ended",
+    "anio": 2008,
+    "duracion": 61,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/0/2245.jpg",
+    "sinopsis": "When an international flight lands at Boston's Logan Airport and the passengers and crew have all died grisly deaths, FBI Special Agent Olivia Dunham is called in to investigate. After her partner is nearly killed during the investigation, a desperate Olivia searches frantically for someone to help, leading her to Dr. Walter Bishop, our generation's Einstein. There's only one catch: he's been institutionalized for the last twenty years, and the only way to question him requires pulling his estranged son Peter in to help. When Olivia's investigation leads her to a manipulative corporate executive, she and her team will discover that what happened on Flight 627 is only a small piece of a larger, more shocking truth and will explore the blurring line between the possible and the impossible.",
+    "url": "https://www.tvmaze.com/shows/158/fringe"
+  },
+  {
+    "id": 164,
+    "nombre": "Banshee",
+    "generos": [
+      "Drama",
+      "Action",
+      "Crime"
+    ],
+    "puntaje": 8.6,
+    "estado": "Ended",
+    "anio": 2013,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/504/1260183.jpg",
+    "sinopsis": "Banshee stars Antony Starr as Lucas Hood, an ex-con and master thief who assumes the identity of the sheriff of Banshee, Pennsylvania, where he continues his criminal activities, even as he's hunted by the shadowy gangsters he betrayed years earlier.",
+    "url": "https://www.tvmaze.com/shows/164/banshee"
+  },
+  {
+    "id": 150,
+    "nombre": "Shameless",
+    "generos": [
+      "Drama",
+      "Comedy",
+      "Family"
+    ],
+    "puntaje": 8.5,
+    "estado": "Ended",
+    "anio": 2011,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/486/1215661.jpg",
+    "sinopsis": "Shameless is a fiercely engaging and fearlessly twisted series. Chicagoan Frank Gallagher is the proud single dad of six smart, industrious, independent kids, who without him would be... perhaps better off. When Frank's not at the bar spending what little money they have, he's passed out on the floor. But the kids have found ways to grow up in spite of him. They may not be like any family you know, but they make no apologies for being exactly who they are.",
+    "url": "https://www.tvmaze.com/shows/150/shameless"
+  },
+  {
+    "id": 157,
+    "nombre": "The Americans",
+    "generos": [
+      "Drama",
+      "Espionage"
+    ],
+    "puntaje": 8.5,
+    "estado": "Ended",
+    "anio": 2013,
+    "duracion": 62,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/146/366911.jpg",
+    "sinopsis": "The Americans is a period drama about the complex marriage of two KGB spies posing as Americans in suburban Washington D.C. shortly after Ronald Reagan is elected President.",
+    "url": "https://www.tvmaze.com/shows/157/the-americans"
+  },
+  {
+    "id": 10,
+    "nombre": "Grimm",
+    "generos": [
+      "Drama",
+      "Crime",
+      "Supernatural"
+    ],
+    "puntaje": 8.4,
+    "estado": "Ended",
+    "anio": 2011,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/69/174906.jpg",
+    "sinopsis": "Grimm is a drama series inspired by the classic Grimm Brothers' Fairy Tales. After Portland homicide detective Nick Burkhardt discovers he's descended from an elite line of criminal profilers known as \"Grimms\", he increasingly finds his responsibilities as a detective at odds with his new responsibilities as a Grimm.",
+    "url": "https://www.tvmaze.com/shows/10/grimm"
+  },
+  {
+    "id": 64,
+    "nombre": "Utopia",
+    "generos": [
+      "Drama",
+      "Science-Fiction",
+      "Thriller"
+    ],
+    "puntaje": 8.4,
+    "estado": "Ended",
+    "anio": 2013,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/275/688620.jpg",
+    "sinopsis": "Utopia based initially around a small group of people who find a rare manuscript of the same name. This leads the group to be targeted by a large organisation with little knowledge of the manuscript's relevance or importance.",
+    "url": "https://www.tvmaze.com/shows/64/utopia"
+  },
+  {
+    "id": 102,
+    "nombre": "Boardwalk Empire",
+    "generos": [
+      "Drama",
+      "Crime"
+    ],
+    "puntaje": 8.4,
+    "estado": "Ended",
+    "anio": 2010,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/405/1012589.jpg",
+    "sinopsis": "As the country struggles to cope with the Great Depression and the end of Prohibition looms, Nucky Thompson looks to legitimize himself through alliances with liquor producers, while rivals Lucky Luciano and Meyer Lansky seek to consolidate their power in the wake of Arnold Rothstein's death and eliminate all competition - by any means necessary on Boardwalk Empire.",
+    "url": "https://www.tvmaze.com/shows/102/boardwalk-empire"
+  },
+  {
+    "id": 143,
+    "nombre": "Silicon Valley",
+    "generos": [
+      "Comedy"
+    ],
+    "puntaje": 8.4,
+    "estado": "Ended",
+    "anio": 2014,
+    "duracion": 30,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/215/538434.jpg",
+    "sinopsis": "In the high-tech gold rush of modern Silicon Valley, the people most qualified to succeed are the least capable of handling success. From Mike Judge comes this satire about a programmer whose game-changing algorithm becomes the subject of a valley-wide bidding war.",
+    "url": "https://www.tvmaze.com/shows/143/silicon-valley"
+  },
+  {
+    "id": 151,
+    "nombre": "The Newsroom",
+    "generos": [
+      "Drama"
+    ],
+    "puntaje": 8.4,
+    "estado": "Ended",
+    "anio": 2012,
+    "duracion": 60,
+    "idioma": "English",
+    "imagen": "https://static.tvmaze.com/uploads/images/medium_portrait/0/2066.jpg",
+    "sinopsis": "The Newsroom follows the members of a cable news team on their quixotic mission to do the news well in the face of a fickle audience, corporate mandates and tangled personal relationships.",
+    "url": "https://www.tvmaze.com/shows/151/the-newsroom"
+  }
+]
