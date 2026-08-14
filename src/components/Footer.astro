@@ -3,34 +3,37 @@ const anio = new Date().getFullYear();
 ---
 
 <footer class="pie">
-  <div class="contenedor pie__interior">
-    <p>
-      <strong>Seriteca</strong> — TP 1, actividad diagnóstico de Frontend.
-    </p>
-    <p class="pie__creditos">
-      Datos de <a href="https://www.tvmaze.com/api" target="_blank" rel="noopener">TVmaze API</a>
-      · Hecho con <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> · {anio}
-    </p>
-  </div>
+  <p class="pie__creditos">
+    Datos de <a href="https://www.tvmaze.com/api" target="_blank" rel="noopener">TVmaze API</a>
+     · Hecho con <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> · {anio}
+  </p>
 </footer>
 
 <style>
+  /* Sin barra: el crédito queda suelto en la esquina inferior derecha */
   .pie {
-    border-top: 1px solid var(--borde);
-    background-color: var(--superficie);
-  }
-
-  .pie__interior {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding-block: 2rem;
-    font-size: 0.9rem;
+    justify-content: flex-end;
+    width: min(100% - 2.5rem, var(--ancho-max));
+    margin-inline: auto;
+    padding-block: 1.5rem 2rem;
   }
 
   .pie__creditos {
+    font-size: 0.82rem;
     color: var(--texto-suave);
+    opacity: 0.75;
+    transition: opacity var(--transicion);
+  }
+
+  .pie__creditos:hover {
+    opacity: 1;
+  }
+
+  @media (max-width: 520px) {
+    .pie {
+      justify-content: center;
+      text-align: center;
+    }
   }
 </style>
