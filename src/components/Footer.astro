@@ -1,0 +1,36 @@
+---
+const anio = new Date().getFullYear();
+---
+
+<footer class="pie">
+  <div class="contenedor pie__interior">
+    <p>
+      <strong>Seriteca</strong> — TP 1, actividad diagnóstico de Frontend.
+    </p>
+    <p class="pie__creditos">
+      Datos de <a href="https://www.tvmaze.com/api" target="_blank" rel="noopener">TVmaze API</a>
+      · Hecho con <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> · {anio}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .pie {
+    border-top: 1px solid var(--borde);
+    background-color: var(--superficie);
+  }
+
+  .pie__interior {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-block: 2rem;
+    font-size: 0.9rem;
+  }
+
+  .pie__creditos {
+    color: var(--texto-suave);
+  }
+</style>

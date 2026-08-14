@@ -1,0 +1,217 @@
+---
+// Cabecera fija con navegación responsive (menú hamburguesa en mobile)
+// y botón para cambiar entre tema claro y oscuro.
+const enlaces = [
+  { href: "#inicio", texto: "Inicio" },
+  { href: "#catalogo", texto: "Catálogo" },
+  { href: "#estadisticas", texto: "Estadísticas" },
+  { href: "#sobre", texto: "Sobre el proyecto" },
+];
+---
+
+<header class="cabecera">
+  <div class="contenedor cabecera__interior">
+    <a class="marca" href="#inicio">
+      <span class="marca__icono" aria-hidden="true">▶</span>
+      <span class="marca__texto">Seriteca</span>
+    </a>
+
+    <button
+      class="cabecera__hamburguesa"
+      id="btn-menu"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-principal"
+    >
+      <span class="solo-lectores">Abrir menú</span>
+      <span class="hamburguesa__linea" aria-hidden="true"></span>
+      <span class="hamburguesa__linea" aria-hidden="true"></span>
+      <span class="hamburguesa__linea" aria-hidden="true"></span>
+    </button>
+
+    <nav class="navegacion" id="menu-principal" aria-label="Navegación principal">
+      <ul class="navegacion__lista">
+        {
+          enlaces.map((enlace) => (
+            <li>
+              <a href={enlace.href}>{enlace.texto}</a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <button class="boton-tema" id="btn-tema" type="button" aria-pressed="false">
+        <span class="boton-tema__icono" aria-hidden="true">🌙</span>
+        <span class="boton-tema__texto">Modo oscuro</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // --- Cambio de tema (claro / oscuro) ---
+  const btnTema = document.getElementById("btn-tema");
+  const icono = btnTema?.querySelector(".boton-tema__icono");
+  const texto = btnTema?.querySelector(".boton-tema__texto");
+
+  function pintarBoton(tema: string) {
+    if (!btnTema || !icono || !texto) return;
+    const esOscuro = tema === "oscuro";
+    icono.textContent = esOscuro ? "☀️" : "🌙";
+    texto.textContent = esOscuro ? "Modo claro" : "Modo oscuro";
+    btnTema.setAttribute("aria-pressed", String(esOscuro));
+  }
+
+  pintarBoton(document.documentElement.dataset.tema ?? "oscuro");
+
+  btnTema?.addEventListener("click", () => {
+    const nuevo = document.documentElement.dataset.tema === "oscuro" ? "claro" : "oscuro";
+    document.documentElement.dataset.tema = nuevo;
+    localStorage.setItem("tema", nuevo);
+    pintarBoton(nuevo);
+  });
+
+  // --- Menú hamburguesa en mobile ---
+  const btnMenu = document.getElementById("btn-menu");
+  const menu = document.getElementById("menu-principal");
+
+  btnMenu?.addEventListener("click", () => {
+    const abierto = btnMenu.getAttribute("aria-expanded") === "true";
+    btnMenu.setAttribute("aria-expanded", String(!abierto));
+    menu?.classList.toggle("navegacion--abierta", !abierto);
+  });
+
+  // Al tocar un enlace, cierra el menú (si estaba abierto)
+  menu?.querySelectorAll("a").forEach((enlace) => {
+    enlace.addEventListener("click", () => {
+      btnMenu?.setAttribute("aria-expanded", "false");
+      menu.classList.remove("navegacion--abierta");
+    });
+  });
+</script>
+
+<style>
+  .cabecera {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: color-mix(in srgb, var(--fondo) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .cabecera__interior {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-block: 0.9rem;
+  }
+
+  .marca {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--texto);
+    text-decoration: none;
+  }
+
+  .marca__icono {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9px;
+    background-color: var(--acento);
+    color: var(--acento-texto);
+    font-size: 0.8rem;
+  }
+
+  .navegacion {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .navegacion__lista {
+    display: flex;
+    gap: 1.25rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .navegacion__lista a {
+    color: var(--texto-suave);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color var(--transicion);
+  }
+
+  .navegacion__lista a:hover {
+    color: var(--acento);
+  }
+
+  .boton-tema {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.45rem 0.85rem;
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    background-color: var(--superficie);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: border-color var(--transicion), transform var(--transicion);
+  }
+
+  .boton-tema:hover {
+    border-color: var(--acento);
+    transform: translateY(-1px);
+  }
+
+  .cabecera__hamburguesa {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0.5rem;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background-color: var(--superficie);
+    cursor: pointer;
+  }
+
+  .hamburguesa__linea {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background-color: var(--texto);
+  }
+
+  /* --- Mobile: el menú se despliega debajo del logo --- */
+  @media (max-width: 720px) {
+    .cabecera__hamburguesa {
+      display: flex;
+    }
+
+    .navegacion {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding-top: 1rem;
+    }
+
+    .navegacion--abierta {
+      display: flex;
+    }
+
+    .navegacion__lista {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+</style>

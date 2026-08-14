@@ -1,18 +1,15 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Seriteca — Catálogo de series</title>
-  </head>
-  <body>
-    <main class="contenedor seccion">
+<Layout
+  titulo="Seriteca — Catálogo de series"
+  descripcion="Catálogo de series hecho con Astro. TP 1 de Frontend."
+>
+  <section class="seccion" id="inicio">
+    <div class="contenedor">
       <h1>Seriteca</h1>
       <p>Catálogo de series. Trabajo en progreso.</p>
-    </main>
-  </body>
-</html>
+    </div>
+  </section>
+</Layout>
