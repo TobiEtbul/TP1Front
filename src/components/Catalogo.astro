@@ -1,0 +1,426 @@
+---
+import SerieCard from "./SerieCard.astro";
+import type { Serie } from "../data/tipos";
+
+interface Props {
+  series: Serie[];
+  generos: string[];
+}
+
+const { series, generos } = Astro.props;
+---
+
+<section class="seccion" id="catalogo">
+  <div class="contenedor">
+    <div class="seccion__titulo">
+      <h2>Catálogo</h2>
+      <p class="etiqueta">{series.length} series</p>
+    </div>
+    <p class="seccion__bajada">
+      Buscá por título, filtrá por género y cambiá el orden. El filtrado ocurre en el
+      navegador, así que los resultados se actualizan mientras escribís.
+    </p>
+
+    <!-- ---------- Controles ---------- -->
+    <form class="controles" id="controles" role="search">
+      <div class="control control--busqueda">
+        <label class="control__etiqueta" for="busqueda">Buscar</label>
+        <input
+          class="control__campo"
+          type="search"
+          id="busqueda"
+          name="busqueda"
+          placeholder="Ej: Breaking Bad"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="control">
+        <label class="control__etiqueta" for="genero">Género</label>
+        <select class="control__campo" id="genero" name="genero">
+          <option value="todos">Todos</option>
+          {generos.map((genero) => <option value={genero.toLowerCase()}>{genero}</option>)}
+        </select>
+      </div>
+
+      <div class="control">
+        <label class="control__etiqueta" for="orden">Ordenar por</label>
+        <select class="control__campo" id="orden" name="orden">
+          <option value="puntaje">Mejor puntaje</option>
+          <option value="nombre">Nombre (A–Z)</option>
+          <option value="anio">Más recientes</option>
+        </select>
+      </div>
+
+      <button class="control__limpiar" type="reset" id="btn-limpiar">Limpiar</button>
+    </form>
+
+    <p class="contador" id="contador" aria-live="polite">
+      Mostrando {series.length} de {series.length} series
+    </p>
+
+    <!-- ---------- Grilla de series ---------- -->
+    <div class="grilla" id="grilla">
+      {series.map((serie) => <SerieCard serie={serie} />)}
+    </div>
+
+    <p class="vacio" id="vacio" hidden>
+      😕 No encontramos series con esos filtros. Probá con otro término o buscá en la API.
+    </p>
+
+    <!-- ---------- Búsqueda en la API externa ---------- -->
+    <div class="api">
+      <div class="api__cabecera">
+        <div>
+          <h3 class="api__titulo">¿No está en el catálogo?</h3>
+          <p class="api__bajada">
+            Buscá en toda la base de <strong>TVmaze</strong> en vivo (fetch a una API externa).
+          </p>
+        </div>
+        <button class="api__boton" type="button" id="btn-api">Buscar en TVmaze</button>
+      </div>
+
+      <p class="api__estado" id="api-estado" role="status" aria-live="polite" hidden></p>
+      <div class="grilla" id="api-grilla"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // ==========================================================
+  //  1) Filtrado y ordenamiento del catálogo (en el navegador)
+  // ==========================================================
+  const formulario = document.getElementById("controles") as HTMLFormElement;
+  const inputBusqueda = document.getElementById("busqueda") as HTMLInputElement;
+  const selectGenero = document.getElementById("genero") as HTMLSelectElement;
+  const selectOrden = document.getElementById("orden") as HTMLSelectElement;
+  const grilla = document.getElementById("grilla") as HTMLElement;
+  const contador = document.getElementById("contador") as HTMLElement;
+  const mensajeVacio = document.getElementById("vacio") as HTMLElement;
+
+  const tarjetas = Array.from(grilla.querySelectorAll<HTMLElement>(".tarjeta"));
+  const total = tarjetas.length;
+
+  function aplicarFiltros() {
+    const texto = inputBusqueda.value.trim().toLowerCase();
+    const genero = selectGenero.value;
+    let visibles = 0;
+
+    for (const tarjeta of tarjetas) {
+      const nombre = tarjeta.dataset.nombre ?? "";
+      const generos = tarjeta.dataset.generos ?? "";
+
+      const coincideTexto = nombre.includes(texto);
+      const coincideGenero = genero === "todos" || generos.includes(genero);
+      const visible = coincideTexto && coincideGenero;
+
+      tarjeta.hidden = !visible;
+      if (visible) visibles++;
+    }
+
+    contador.textContent = `Mostrando ${visibles} de ${total} series`;
+    mensajeVacio.hidden = visibles > 0;
+  }
+
+  function ordenar() {
+    const criterio = selectOrden.value;
+
+    const ordenadas = [...tarjetas].sort((a, b) => {
+      if (criterio === "nombre") {
+        return (a.dataset.nombre ?? "").localeCompare(b.dataset.nombre ?? "");
+      }
+      if (criterio === "anio") {
+        return Number(b.dataset.anio ?? 0) - Number(a.dataset.anio ?? 0);
+      }
+      return Number(b.dataset.puntaje ?? 0) - Number(a.dataset.puntaje ?? 0);
+    });
+
+    // Reinsertar en el nuevo orden (append mueve el nodo, no lo duplica)
+    for (const tarjeta of ordenadas) grilla.appendChild(tarjeta);
+  }
+
+  inputBusqueda.addEventListener("input", aplicarFiltros);
+  selectGenero.addEventListener("change", aplicarFiltros);
+  selectOrden.addEventListener("change", ordenar);
+
+  // El reset del form limpia los campos *después* del evento: por eso el setTimeout
+  formulario.addEventListener("reset", () => {
+    setTimeout(() => {
+      aplicarFiltros();
+      ordenar();
+    });
+  });
+
+  // Evita que Enter recargue la página
+  formulario.addEventListener("submit", (evento) => evento.preventDefault());
+
+  // ==========================================================
+  //  2) Búsqueda en vivo contra la API de TVmaze (fetch)
+  // ==========================================================
+  const btnApi = document.getElementById("btn-api") as HTMLButtonElement;
+  const estadoApi = document.getElementById("api-estado") as HTMLElement;
+  const grillaApi = document.getElementById("api-grilla") as HTMLElement;
+
+  const SIN_IMAGEN =
+    "data:image/svg+xml;charset=utf-8," +
+    encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 295"><rect width="210" height="295" fill="#2a2e38"/><text x="105" y="150" fill="#8b93a5" font-family="sans-serif" font-size="16" text-anchor="middle">Sin imagen</text></svg>`
+    );
+
+  function mostrarEstado(mensaje: string) {
+    estadoApi.textContent = mensaje;
+    estadoApi.hidden = false;
+  }
+
+  /** Crea una tarjeta con la misma estructura que el componente SerieCard.astro */
+  function crearTarjeta(show: any): HTMLElement {
+    const articulo = document.createElement("article");
+    articulo.className = "tarjeta visible";
+
+    const figura = document.createElement("figure");
+    figura.className = "tarjeta__figura";
+
+    const imagen = document.createElement("img");
+    imagen.className = "tarjeta__imagen";
+    imagen.src = show.image?.medium ?? SIN_IMAGEN;
+    imagen.alt = `Póster de ${show.name}`;
+    imagen.loading = "lazy";
+    figura.appendChild(imagen);
+
+    if (show.rating?.average) {
+      const puntaje = document.createElement("span");
+      puntaje.className = "tarjeta__puntaje";
+      puntaje.textContent = `★ ${show.rating.average.toFixed(1)}`;
+      figura.appendChild(puntaje);
+    }
+
+    const cuerpo = document.createElement("div");
+    cuerpo.className = "tarjeta__cuerpo";
+
+    const titulo = document.createElement("h3");
+    titulo.className = "tarjeta__titulo";
+    titulo.textContent = show.name;
+
+    const meta = document.createElement("p");
+    meta.className = "tarjeta__meta";
+    const anio = show.premiered ? show.premiered.slice(0, 4) : "—";
+    meta.textContent = `${anio} · ${show.language ?? "s/d"}`;
+
+    const generos = document.createElement("ul");
+    generos.className = "tarjeta__generos";
+    for (const genero of show.genres ?? []) {
+      const item = document.createElement("li");
+      item.className = "tarjeta__genero";
+      item.textContent = genero;
+      generos.appendChild(item);
+    }
+
+    const sinopsis = document.createElement("p");
+    sinopsis.className = "tarjeta__sinopsis";
+    // La API devuelve HTML en summary: lo pasamos a texto plano
+    sinopsis.textContent = (show.summary ?? "").replace(/<[^>]+>/g, "").trim() || "Sin sinopsis.";
+
+    const enlace = document.createElement("a");
+    enlace.className = "tarjeta__enlace";
+    enlace.href = show.url;
+    enlace.target = "_blank";
+    enlace.rel = "noopener";
+    enlace.textContent = "Ver ficha completa →";
+
+    cuerpo.append(titulo, meta, generos, sinopsis, enlace);
+    articulo.append(figura, cuerpo);
+    return articulo;
+  }
+
+  async function buscarEnApi() {
+    const consulta = inputBusqueda.value.trim();
+
+    if (consulta.length < 2) {
+      mostrarEstado("Escribí al menos 2 letras en el buscador para consultar la API.");
+      grillaApi.replaceChildren();
+      return;
+    }
+
+    btnApi.disabled = true;
+    mostrarEstado("Buscando en TVmaze…");
+    grillaApi.replaceChildren();
+
+    try {
+      const respuesta = await fetch(
+        `https://api.tvmaze.com/search/shows?q=${encodeURIComponent(consulta)}`
+      );
+
+      if (!respuesta.ok) throw new Error(`La API respondió ${respuesta.status}`);
+
+      const resultados = await respuesta.json();
+
+      if (resultados.length === 0) {
+        mostrarEstado(`No hay resultados en TVmaze para "${consulta}".`);
+        return;
+      }
+
+      const fragmento = document.createDocumentFragment();
+      for (const { show } of resultados.slice(0, 8)) {
+        fragmento.appendChild(crearTarjeta(show));
+      }
+      grillaApi.appendChild(fragmento);
+
+      mostrarEstado(`${Math.min(resultados.length, 8)} resultado(s) para "${consulta}".`);
+    } catch (error) {
+      console.error(error);
+      mostrarEstado("❌ No se pudo conectar con la API. Revisá tu conexión e intentá de nuevo.");
+    } finally {
+      btnApi.disabled = false;
+    }
+  }
+
+  btnApi.addEventListener("click", buscarEnApi);
+</script>
+
+<style>
+  /* --- Controles --- */
+  .controles {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    align-items: end;
+    gap: 1rem;
+    padding: 1.25rem;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+  }
+
+  .control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-width: 0;
+  }
+
+  .control__etiqueta {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+  }
+
+  .control__campo {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background-color: var(--fondo);
+    transition: border-color var(--transicion);
+  }
+
+  .control__campo:hover {
+    border-color: var(--acento);
+  }
+
+  .control__limpiar {
+    padding: 0.6rem 1.1rem;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background-color: var(--superficie-alt);
+    cursor: pointer;
+    transition: border-color var(--transicion);
+  }
+
+  .control__limpiar:hover {
+    border-color: var(--acento);
+  }
+
+  .contador {
+    margin-block: 1.25rem 1rem;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+  }
+
+  /* --- Grilla responsive: se acomoda sola según el ancho disponible --- */
+  .grilla {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+    gap: 1.5rem;
+  }
+
+  .vacio {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--texto-suave);
+  }
+
+  /* --- Bloque de la API --- */
+  .api {
+    margin-top: 3.5rem;
+    padding: 1.5rem;
+    border: 1px dashed var(--borde);
+    border-radius: var(--radio);
+  }
+
+  .api__cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .api__titulo {
+    font-size: 1.15rem;
+  }
+
+  .api__bajada {
+    color: var(--texto-suave);
+    font-size: 0.9rem;
+  }
+
+  .api__boton {
+    padding: 0.65rem 1.3rem;
+    border: none;
+    border-radius: 999px;
+    background-color: var(--acento);
+    color: var(--acento-texto);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transicion), opacity var(--transicion);
+  }
+
+  .api__boton:hover:not(:disabled) {
+    transform: translateY(-2px);
+  }
+
+  .api__boton:disabled {
+    opacity: 0.6;
+    cursor: progress;
+  }
+
+  .api__estado {
+    margin-block: 1rem;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+  }
+
+  .api__estado:not([hidden]) + .grilla:not(:empty) {
+    margin-top: 1.5rem;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 860px) {
+    .controles {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .control--busqueda {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .controles {
+      grid-template-columns: 1fr;
+    }
+
+    .api__boton {
+      width: 100%;
+    }
+  }
+</style>

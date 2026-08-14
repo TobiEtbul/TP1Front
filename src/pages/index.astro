@@ -1,9 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
-import { obtenerSeries, calcularEstadisticas } from "../data/series";
+import Catalogo from "../components/Catalogo.astro";
+import { obtenerSeries, obtenerGeneros, calcularEstadisticas } from "../data/series";
 
 const series = await obtenerSeries();
+const generos = obtenerGeneros(series);
 const estadisticas = calcularEstadisticas(series);
 ---
 
@@ -12,4 +14,5 @@ const estadisticas = calcularEstadisticas(series);
   descripcion="Catálogo de series hecho con Astro. TP 1 de Frontend."
 >
   <Hero cantidad={series.length} mejor={estadisticas.mejor.nombre} />
+  <Catalogo series={series} generos={generos} />
 </Layout>
