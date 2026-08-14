@@ -1,0 +1,52 @@
+---
+import "../styles/tarjeta.css";
+import type { Serie } from "../data/tipos";
+
+// Componente reutilizable: se usa tanto para las series del catálogo inicial
+// como (replicado en JS) para los resultados que llegan de la API.
+interface Props {
+  serie: Serie;
+}
+
+const { serie } = Astro.props;
+---
+
+<article
+  class="tarjeta revelar"
+  data-nombre={serie.nombre.toLowerCase()}
+  data-generos={serie.generos.join(",").toLowerCase()}
+  data-puntaje={serie.puntaje}
+  data-anio={serie.anio ?? 0}
+>
+  <figure class="tarjeta__figura">
+    <img
+      class="tarjeta__imagen"
+      src={serie.imagen}
+      alt={`Póster de ${serie.nombre}`}
+      loading="lazy"
+      width="210"
+      height="295"
+    />
+    <span class="tarjeta__puntaje">★ {serie.puntaje.toFixed(1)}</span>
+  </figure>
+
+  <div class="tarjeta__cuerpo">
+    <h3 class="tarjeta__titulo">{serie.nombre}</h3>
+
+    <p class="tarjeta__meta">
+      <span>{serie.anio ?? "—"}</span>
+      <span aria-hidden="true">·</span>
+      <span>{serie.duracion ? `${serie.duracion} min` : "Duración s/d"}</span>
+    </p>
+
+    <ul class="tarjeta__generos">
+      {serie.generos.map((genero) => <li class="tarjeta__genero">{genero}</li>)}
+    </ul>
+
+    <p class="tarjeta__sinopsis">{serie.sinopsis}</p>
+
+    <a class="tarjeta__enlace" href={serie.url} target="_blank" rel="noopener">
+      Ver ficha completa →
+    </a>
+  </div>
+</article>

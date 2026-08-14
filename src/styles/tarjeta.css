@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Estilos de la tarjeta de serie.
+   Están en un archivo global (y no en <style> del componente) porque las
+   tarjetas de resultados de la API se crean desde JavaScript en el navegador,
+   y los estilos "scoped" de Astro no alcanzan a esos elementos nuevos.
+   ========================================================================== */
+
+.tarjeta {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  transition: transform var(--transicion), border-color var(--transicion);
+}
+
+.tarjeta:hover {
+  transform: translateY(-6px);
+  border-color: var(--acento);
+}
+
+.tarjeta[hidden] {
+  display: none;
+}
+
+.tarjeta__figura {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 2 / 3;
+  background-color: var(--superficie-alt);
+}
+
+.tarjeta__imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tarjeta__puntaje {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background-color: rgb(0 0 0 / 72%);
+  color: #ffd76a;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.tarjeta__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.tarjeta__titulo {
+  font-size: 1.05rem;
+}
+
+.tarjeta__meta {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.tarjeta__generos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  padding: 0;
+}
+
+.tarjeta__genero {
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  background-color: var(--acento-suave);
+  color: var(--acento);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.tarjeta__sinopsis {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  /* Recorta la sinopsis a 3 líneas para que todas las tarjetas queden parejas */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tarjeta__enlace {
+  margin-top: auto;
+  padding-top: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tarjeta__enlace:hover {
+  text-decoration: underline;
+}
